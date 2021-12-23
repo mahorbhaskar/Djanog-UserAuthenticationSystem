@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<section class="form my-4 mx-5">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-lg-5">
+                <img src="{% static 'images/bear.jpg' %}" class="img-fluid" alt="bear image">
+            </div>
+            <div class="col-lg-7 px-5 pt-5">
+                <!-- <h1 class="font-weight-bold py-3">LOGO</h1> -->
+                <h4 class="py-3">Create an Account</h4>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <input type="text" name="username" id="usernameField" placeholder="Enter Your Email or Phone*"  class="form-control " required>
+                        
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <input type="password" id="password" name="password" placeholder="password*"  class="form-control " required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm_password*"  class="form-control " required>
+                        </div>
+                        <span id="message"></span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <select class="form-control" name="question" required>
+                                <option selected disabled value="">Security Question...</option>
+                                <option name="question" value="City You were born">City You were born?</option>
+                                <option name="question" value="Your First Pet Name">Your First Pet Name?</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <input type="text" name="answer" class="form-control" placeholder="Your Answer" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <input type="submit" class="btn1 mt-3 mb-5" id="save" value="Register" class="form-control">
+                        </div>
+                    </div>
+                    <p>Have an account? <a href="{% url 'login' %}">Sign In</a> </p> 
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+

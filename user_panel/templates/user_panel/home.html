@@ -1,0 +1,5 @@
+{% load static %}
+{% if request.user.is_authenticated %}
+        <p>Hello {{request.user}}</p>
+{% endif %}
+        

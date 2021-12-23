@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<section class="form my-4 mx-5">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-lg-5">
+                <img src="{% static 'images/bear.jpg' %}" class="img-fluid" alt="bear image">
+            </div>
+            <div class="col-lg-7 px-5 pt-5">
+                <!-- <img src="{% static 'images/logo.png' %}" alt="" class="logo"> -->
+                <!-- <h1 class="font-weight-bold py-3">LOGO</h1> -->
+                <h4>Sign into Your Account</h4>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col-lg-7">
+                            <input type="text" name="username" placeholder="Email ID or Phone*"  class="form-control my-3 p-4">
+                        </div>
+                    </div> 
+                    <div class="form-row">
+                        <div class="col-lg-7">
+                            <input type="password" id="password" name="password" placeholder="Password"  class="form-control my-3 p-4">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-7">
+                            <input type="submit" class="btn1 mt-3 mb-5"  class="form-control">
+                        </div>
+                    </div>
+                    {% for message in messages %}
+                        <p class="alert alert-primary">{{message}}</p>
+                    {% endfor %}
+                    <a href="{% url 'forgot-password' %}">Forgot Password</a>
+                    <p>Don't have an account? <a href="{% url 'register' %}">Register Here</a> </p> 
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
