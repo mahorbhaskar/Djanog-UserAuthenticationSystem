@@ -18,29 +18,27 @@
         }
       });
     });
-  $("#emailField").keyup(function(){
-      var email = $(this).val();
+    $("#forgetuserfield").keyup(function(){
+      var username = $(this).val();
       $.ajax({
-      url: '/ajax/checkEmailField/',
+      url: '/ajax/forgetUserField/',
       data: {
-              'email': email
+              'username':username
             },
       dataType: 'json',
       success: function (data) {
         if (data.is_taken) {
-          $("#emailField").after("<div class='validation' id='alert_msg' style='color:red;margin-bottom: 0px;'>email already taken choose another.</div>");
-          document.getElementById("save").disabled = true;
+          document.getElementById("save").disabled = false;
           }
         else{
-          document.getElementById("save").disabled = false;
-          document.getElementById("alert_msg").remove();
+          document.getElementById("save").disabled = true;
         }
         }
       });
     });
   $('#password, #confirm_password').on('keyup', function () {
                     if ($('#password').val() == $('#confirm_password').val()) {
-                      $('#message').html('').css('color', 'green');
+                      $('#message').html('gfgg').css('color', 'green');
                       document.getElementById("save").disabled = false;
                     } 
                     else{

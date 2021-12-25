@@ -3,11 +3,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Question, UserQuestionModel, Profile
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 import uuid
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import JsonResponse
+from twilio.rest import Client
+import random, math
 # Create your views here.
 
 @login_required(login_url='login')
@@ -38,7 +40,6 @@ def register(request):
     else:    
         return render(request, 'user_panel/register.html')
 
-
 # Function to LogIn the User
 def login_user(request):
     if request.method == 'POST':
@@ -53,6 +54,11 @@ def login_user(request):
             messages.warning(request,'wrong credentials')
             return redirect('login')
     return render(request,'user_panel/login.html')
+
+def logout_user(request):
+    logout(request)
+    messages.warning(request,'You have successfully LogOut')
+    return redirect('login')
 
 # changePassword function to change password
 def changePassword(request,id):
@@ -77,17 +83,30 @@ def forgotPassword(request):
         question_id = Question.objects.get(question=question)
         user_id = User.objects.get(username=username)
         if UserQuestionModel.objects.filter(question=question_id,answer=answer,user=user_id).exists:
-            profile = Profile.objects.get(user=user_id)
-            user_email = user_id.username
-            print(user_email)
-            ftoken = profile.forget_password_token
-            print(ftoken)
-            mail_message = f'Hi, click on the link to reset your password http://127.0.0.1:8000/change-password/{ftoken}/'
-            send_mail('Password Reset Request',mail_message,settings.EMAIL_HOST_USER,[user_email],fail_silently = False)
-            messages.success(request,'MAIL SENT')
-            return redirect('forgot-password')
+            if "@" in user_id.username:
+                profile = Profile.objects.get(user=user_id)
+                user_email = user_id.username
+                print(user_email)
+                ftoken = profile.forget_password_token
+                print(ftoken)
+                mail_message = f'Hi, click on the link to reset your password http://127.0.0.1:8000/change-password/{ftoken}/'
+                send_mail('Password Reset Request',mail_message,settings.EMAIL_HOST_USER,[user_email],fail_silently = False)
+                messages.success(request,'MAIL SENT')
+                return redirect('forgot-password')
+            else:
+                profile = Profile.objects.get(user=user_id)
+                ftoken = profile.forget_password_token
+                account_sid = "AC8f333de3c21aa3d0b36d13d1f4314bae"
+                auth_token = "b9d703530fd5150cbf782c467bcb7f01"
+                client = Client(account_sid,auth_token)
+                message = client.messages.create(
+                    to=user_id,
+                    from_= "+15595943805",
+                    body= f'Hi, click on the link to reset your password http://127.0.0.1:8000/change-password/{ftoken}/'
+                )
+                print(f'Hi, click on the link to reset your password http://127.0.0.1:8000/change-password/{ftoken}/')
+                messages.success(request,'Reset Link Send on your Mobile Number')
     return render(request,'user_panel/forgot-password.html')
-
 
 #validations part
 def checkUserName(request):
@@ -96,14 +115,14 @@ def checkUserName(request):
         'is_taken': User.objects.filter(username=username).exists(),
     }
     if data['is_taken']:
-        data['error_message'] = 'usrname already exists'
+        data['error_message'] = 'username already exists'
     return JsonResponse(data)
-#email Validation
-def checkEmailField(request):
-    email = request.GET.get('email',None)
+
+def forgetUserField(request):
+    username = request.GET.get('username',None)
     data = {
-        'is_taken': User.objects.filter(email=email).exists(),
+        'is_taken':User.objects.filter(username=username).exists(),
     }
     if data['is_taken']:
-        data['error_message'] = 'eamil already exists'
+        data['error_message'] = 'username already exists'
     return JsonResponse(data)
