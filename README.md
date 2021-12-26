@@ -7,7 +7,7 @@
 | JavaScript | --- | 283 |
 | Ajax Validation | --- | 283 |
 
-Login and Logout Functionality, Authenticate user through OTP verification using Mobile number and Email ID . 
+Login and Logout Functionality, Authenticate user through OTP verification using Mobile number and Email ID. I have also use validation in all the fields using Ajax while registering a user in database  
 
 
 ### Cloning the repository
