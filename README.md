@@ -1,11 +1,11 @@
 # Djanog-UserAuthenticationSystem
 
-| Technology Use | #version | #2 |
-| :---: | :---: | :---: |
-| Python | 3.9.5 | 283 |
-| Django | 3.2.7 | 283 |
-| JavaScript | --- | 283 |
-| Ajax Validation | --- | 283 |
+| Technology Use | #version | 
+| :---: | :---: | 
+| Python | 3.9.5 | 
+| Django | 3.2.7 | 
+| JavaScript | --- | 
+| Ajax Validation | --- |
 
 Login and Logout Functionality, Authenticate user through OTP verification using Mobile number and Email ID. I have also use validation in all the fields using Ajax while registering a user in database  
 
