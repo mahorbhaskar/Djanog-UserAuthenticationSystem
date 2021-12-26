@@ -14,22 +14,18 @@ Login and Logout Functionality, Authenticate user through OTP verification using
 
 --> Clone the repository using the command below :
 ```bash
-git clone https://github.com/mahorbhaskar/
-Djanog-UserAuthenticationSystem
+git clone https://github.com/mahorbhaskar/Djanog-UserAuthenticationSystem
 
 ```
 
 --> Move into the directory where we have the project files : 
 ```bash
-cd 
-Djanog-UserAuthenticationSystem
-
+cd Djanog-UserAuthenticationSystem
 ```
 
 --> Create a virtual environment :
 ```bash
-# If you are on Windows
-virtualenv env
+# If you are on Windowsvirtualenv env
 # If you are on Linux or Mac
 python -m venv env
 ```
