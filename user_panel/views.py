@@ -12,10 +12,9 @@ from twilio.rest import Client
 import random, math
 # Create your views here.
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def home(request):
-    return render(request,'user_panel/home.html')
-
+    return render(request,'home.html')
 
 # Function to Register the User
 def register(request):
