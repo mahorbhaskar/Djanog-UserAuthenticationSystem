@@ -1,42 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-  <!-- Button trigger modal -->
-<div class=""data-toggle="modal" data-target="#exampleModal">
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
-  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-</svg>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {% if request.user.is_authenticated %}
-            <p>Hello {{request.user}}</p>
-            <p>{{request.user.first_name}}
-            {{request.user.last_name}}</p>
-            <a class="btn btn-primary btn-sm" href="{% url 'logout' %}">logout</a>
-        {% else %}
-          <p>Please LogIn</p>
-        {% endif %}
-        
-      </div>
-      <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
-    </div>
-  </div>
-</div>
-
+  <a class="navbar-brand" href="#">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -44,13 +8,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link ml-3" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'product' %}">Add Product<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Edit Product<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
@@ -70,14 +28,9 @@
         <a class="nav-link disabled">Disabled</a>
       </li>
     </ul>
-    {% if request.user.is_authenticated %}
-
-    {% else %}
     <form class="form-inline my-2 my-lg-0">
-      <a href="{% url 'login' %}" class="btn btn-outline-light mr-sm-2 my-2 my-sm-0">SignIn</a>
-      <a href="{% url 'register' %}" class="btn btn-outline-light mr-sm-2 my-2 my-sm-0">SignUp</a>
+      <a href="signIn.html" class="btn btn-outline-light mr-sm-2 my-2 my-sm-0">SignIn</a>
+      <a href="register.html" class="btn btn-outline-light mr-sm-2 my-2 my-sm-0">SignUp</a>
     </form>
-    {% endif %}
-    
   </div>
 </nav>
