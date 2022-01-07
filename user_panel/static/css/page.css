@@ -13,11 +13,6 @@ body{
     border-radius: 30px;
     box-shadow: 12px 12px 22px grey;
 }
-img{
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    height: 10%;
-}
 .btn1{
     border:none;
     outline:none;
@@ -35,4 +30,19 @@ img{
 }
 .logo{
     height: 70px;
+}
+.login-image{
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    height: 100%;
+}
+.product-image{
+    height: 280px;
+}
+.image-onpage{
+    display: flex;
+}
+.nopadding{
+    margin: 0px;
+    padding: 0px;
 }

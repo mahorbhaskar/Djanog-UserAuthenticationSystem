@@ -1,0 +1,48 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<section class="form my-4 mx-5">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-lg-5">
+                {% for img in images %}
+                    <img src="{{img.product_images.url}}" alt="images" height="200px">
+                {% endfor %}
+            </div>
+            <div class="col-lg-7 px-5 pt-5">
+                <h4 style="font-weight:bolder;">Edit Product</h4>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-lg-7">
+                  <label for="exampleInputEmail1">Product Name</label>
+                  <input type="text" name="product_name" value="{{product_data.name}}" class="form-control" required>
+                    </div>
+                </div>
+                <!-- Product Description -->
+                <div class="form-row">
+                    <div class="col-lg-7">
+                  <label for="exampleInputEmail1">Product Description</label>
+                  <input type="textarea" name="product_description" value="{{product_data.discription}}" class="form-control" required>
+                    </div>
+                </div>
+                <!-- Upload Images -->
+                <div class="form-row">
+                    <div class="col-lg-7">
+                  <label for="exampleInputPassword1">Choose Images:</label>
+                  <input type="file" name="images" multiple required>
+                    </div>
+                </div>
+                <!-- Submit Button -->
+                <div class="form-row">
+                    <div class="col-lg-7">
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

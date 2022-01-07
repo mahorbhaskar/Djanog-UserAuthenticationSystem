@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+
+from product.models import Images, Product
 from .models import Question, UserQuestionModel, Profile
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -9,14 +11,14 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.http import JsonResponse
 from twilio.rest import Client
-from django_twilio.utils import discover_twilio_credentials
 import random, math
 # Create your views here.
 
-@login_required(login_url='login')
-def home(request):
-    return render(request,'user_panel/home.html')
 
+def home(request):
+    product = Product.objects.all()
+    images = Images.objects.filter(flag=1)
+    return render(request,'home.html',{'product':product,'images':images})
 
 # Function to Register the User
 def register(request):
