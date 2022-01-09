@@ -14,6 +14,7 @@
                 <h4 style="font-weight:bolder;">Edit Product</h4>
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
+                <input type="hidden" id="id" name="id" value="{{product_data.id}}">
                 <div class="form-row">
                     <div class="col-lg-7">
                   <label for="exampleInputEmail1">Product Name</label>

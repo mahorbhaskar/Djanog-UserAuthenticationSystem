@@ -1,12 +1,9 @@
 {% extends 'main.html' %}
-{% load static %}
 {% block content %}
-<section class="form my-4 mx-5">
-  <div class="container">
-      <div class="row no-gutters">
-          <div class="col-lg-5">
-            <!-- some pictures here -->
-          </div>
+
+<section class="">
+      <div class="">
+        <div class="">
           <div class="col-lg-7 px-5 pt-5">
               <h4>Add Product</h4>
           <form action="" method="POST" enctype="multipart/form-data">
@@ -28,18 +25,48 @@
               <div class="form-row">
                   <div class="col-lg-7">
                 <label for="exampleInputPassword1">Choose Images:</label>
-                <input type="file" name="images" multiple required>
+                <input type="file" id="images" name="images" multiple required>
+                <div id="imgPreview" class="border"></div>
+                <div id="coverImage"></div>
+                  </div>
+              </div>
+              <!-- cover image index -->
+              <div class="form-row">
+                  <div class="col-lg-7">
+                <label for="exampleInputPassword1">Choose your Cover Image:</label>
+                <input type="text" id="coverImageIndex" name="coverImageIndex" placeholder="enter image number for cover" required>
                   </div>
               </div>
               <!-- Submit Button -->
-              <div class="form-row">
+              <div class="form-row mt-2">
                   <div class="col-lg-7">
-                      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                      <button type="submit" id="save" class="btn btn-primary btn-block">Submit</button>
                   </div>
               </div>
           </form>
       </div>
   </div>
+  </div>
 </div>
 </section>
+<script>
+  images.onchange = evt =>{
+  $('#imgPreview').html('');
+  const[file]=images.files;
+  var url = URL.createObjectURL(file);
+  var div = document.getElementById("imgPreview");
+  var html='';
+  for (let i=0;i<images.files.length;i++){
+    var info=images.files[i];
+    url=URL.createObjectURL(info);
+    html += `<img id="blah" src="${url}" id="${i}" alt="images" height="100px" />`;} 
+  div.innerHTML=html;
+  html=`<input type="text" max="${images.files.length}" class="form-control" id="coverImageIndex" name="coverImageIndex" `;
+  $('#coverImage').html(html);
+  }
+  $('#coverImageIndex').on('keyup',function(){
+    var index = $(this).val();
+    document.getElementById('save');
+  });
+</script>
 {% endblock content %}

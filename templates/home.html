@@ -5,11 +5,11 @@
 
 <div class="row">
         {% for p in product %}
-        <div class="col-md-4">
-                <div class="card my-2">
+        <div class="col-md-3" style="">
+                <div class="card my-2" style="border-color: black;">
                         {% for img in images %}
                                 {% if img.product == p %}
-                                <img src="{{img.product_images.url}}" alt="images" height="234px">
+                                <img src="{{img.product_images.url}}" alt="images" height="200px">
                                 {% endif %}
                         {% endfor %}
                                 <div class="card-body">
@@ -17,7 +17,7 @@
                                         <small style="font-weight: bold;">Product Name: {{p.name}}</small><br>
                                         <small style="font-weight: bold;">Description: {{p.discription}}</small>
                                 </div>
-                                <a href="{% url 'edit' p.id %}"  class="btn btn-outline-dark btn-sm m-1">Edit</a>
+                                <a href="{% url 'details' p.id %}"  class="btn btn-outline-dark btn-sm m-1">Details</a>
                         </div>
                 </div>
                 {% endfor %} 

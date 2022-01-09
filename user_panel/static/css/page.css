@@ -46,3 +46,11 @@ body{
     margin: 0px;
     padding: 0px;
 }
+.product-details{
+    text-align: center;
+    margin: 5px;
+    background-color: white;
+}
+.product-images{
+    margin-bottom: 5px;
+}
