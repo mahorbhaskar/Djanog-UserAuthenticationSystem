@@ -12,11 +12,10 @@
         <img src="{{img.product_images.url}}" alt="images" height="200px">
     {% endfor %}
     </div>
-    {% if request.user.is_authenticated %}
-        <a class="btn btn-primary my-2 col-md-3" href="{% url 'edit' product_data.id %}">
-            Edit
-        </a>
+    {% if request.user == product_data.user %}
+        <form action="{% url 'edit' %}" method="POST">{% csrf_token %}
+            <input type="hidden" value="{{product_data.id}}" id="id" name="id">
+        <button type="submit" class="btn btn-primary" value="submit">Edit</button></form>
     {% endif %}
 </div>
-          
 {% endblock %}

@@ -3,15 +3,9 @@
     margin: 0;
     box-sizing: border-box;
 }
-body{
-    background: rgb(219, 226, 226);
-    font-family: 'Kodchasan', sans-serif;
-    font-weight: bold;
-}
-.row{
-    background: white;
+.rawnew{
+    background-color: rgb(219, 226, 226);
     border-radius: 30px;
-    box-shadow: 12px 12px 22px grey;
 }
 .btn1{
     border:none;
@@ -53,4 +47,23 @@ body{
 }
 .product-images{
     margin-bottom: 5px;
+}
+.imgPreview{
+    width: 25%;
+    border-radius: 10px;
+    border: 2px solid Black;
+    padding: 5px 5px 5px 5px;
+    margin: 10px 10px 10px 10px;
+    overflow: auto;
+    box-shadow: 5px 5px 2px #888888;
+    position: relative;
+}
+.x{
+    position: absolute;
+    float: right;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    top: 5%;
+    left: 86%;
+    cursor: pointer;
 }

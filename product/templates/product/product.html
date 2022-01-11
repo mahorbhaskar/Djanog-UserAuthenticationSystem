@@ -2,10 +2,8 @@
 {% block content %}
 
 <section class="">
-      <div class="">
-        <div class="">
           <div class="col-lg-7 px-5 pt-5">
-              <h4>Add Product</h4>
+              <h4 class="alert alert-primary col-lg-7">Add Product</h4>
           <form action="" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-row">
@@ -18,7 +16,7 @@
               <div class="form-row">
                   <div class="col-lg-7">
                 <label for="exampleInputEmail1">Product Description</label>
-                <input type="textarea" name="product_description" class="form-control" required>
+                <textarea rows="5" name="product_description" class="form-control" required></textarea>
                   </div>
               </div>
               <!-- Upload Images -->
@@ -30,13 +28,6 @@
                 <div id="coverImage"></div>
                   </div>
               </div>
-              <!-- cover image index -->
-              <div class="form-row">
-                  <div class="col-lg-7">
-                <label for="exampleInputPassword1">Choose your Cover Image:</label>
-                <input type="text" id="coverImageIndex" name="coverImageIndex" placeholder="enter image number for cover" required>
-                  </div>
-              </div>
               <!-- Submit Button -->
               <div class="form-row mt-2">
                   <div class="col-lg-7">
@@ -46,27 +37,31 @@
           </form>
       </div>
   </div>
-  </div>
-</div>
+
 </section>
 <script>
+  function index(i){
+    var div = document.getElementById(i);
+    $(".divv").removeClass('afterImgPreview').css("border-color","black");
+    $(div).toggleClass('afterImgPreview').css("border-color","red");
+    var div = document.getElementById("coverImage");
+    console.log("inside function "+i);
+    html='';
+    html=`<input type="hidden" value="${i+1}" class="form-control" placeholder="enter your coverimage number" id="coverImageIndex" name="coverImageIndex"/>`; 
+    div.innerHTML=html;
+  }
   images.onchange = evt =>{
   $('#imgPreview').html('');
   const[file]=images.files;
   var url = URL.createObjectURL(file);
+  console.log(images.files[0]);
   var div = document.getElementById("imgPreview");
   var html='';
   for (let i=0;i<images.files.length;i++){
     var info=images.files[i];
     url=URL.createObjectURL(info);
-    html += `<img id="blah" src="${url}" id="${i}" alt="images" height="100px" />`;} 
-  div.innerHTML=html;
-  html=`<input type="text" max="${images.files.length}" class="form-control" id="coverImageIndex" name="coverImageIndex" `;
-  $('#coverImage').html(html);
-  }
-  $('#coverImageIndex').on('keyup',function(){
-    var index = $(this).val();
-    document.getElementById('save');
-  });
+    html += `<img onclick="index(${i})" src="${url}" id="${i}" class="imgPreview divv" alt="images" height="100px"/>`;}
+    html+=`<br><small>click on image to choose a cover image</small>`; 
+  div.innerHTML=html;}
 </script>
 {% endblock content %}

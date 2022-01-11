@@ -2,17 +2,13 @@
 {% load static %}
 
 {% block content %}
+{% if request.user == product_data.user %}
 <section class="form my-4 mx-5">
     <div class="container">
         <div class="row no-gutters">
-            <div class="col-lg-5">
-                {% for img in images %}
-                    <img src="{{img.product_images.url}}" alt="images" height="200px">
-                {% endfor %}
-            </div>
-            <div class="col-lg-7 px-5 pt-5">
-                <h4 style="font-weight:bolder;">Edit Product</h4>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <div class="col-md-12 px-4 p-2">
+                <h4 style="font-weight:bolder;" class="alert alert-primary col-lg-7">Edit Product</h4>
+            <form action="{% url 'updatepro' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="hidden" id="id" name="id" value="{{product_data.id}}">
                 <div class="form-row">
@@ -25,20 +21,36 @@
                 <div class="form-row">
                     <div class="col-lg-7">
                   <label for="exampleInputEmail1">Product Description</label>
-                  <input type="textarea" name="product_description" value="{{product_data.discription}}" class="form-control" required>
+                  <textarea rows="5" name="product_description" class="form-control" required>{{product_data.discription}}</textarea>
                     </div>
                 </div>
                 <!-- Upload Images -->
-                <div class="form-row">
+                <div class="form-row mt-3">
                     <div class="col-lg-7">
-                  <label for="exampleInputPassword1">Choose Images:</label>
-                  <input type="file" name="images" multiple required>
+                        <label for="exampleInputPassword1">Choose Images:</label>
+                        <input type="file" id="images" name="images" multiple>
+                        <!-- <div id="imgPreview" class="border"></div> -->
+                        <div id="coverImage"></div>
                     </div>
                 </div>
+                <div class="">
+                    <div style="display: flex;">
+                        {% for img in images %}
+                                <div id="{{img.product_images}}" onclick="flag('{{img.product_images}}','{{img.id}}')" class="imgPreview divv">
+                                <span class="x" onclick="del('{{img.product_images}}','{{product_data.id}}')">X</span>
+                                <img id="blah" src="{{img.product_images.url}}" alt="images" height="70px">
+                                </div>
+                        {% endfor %}
+                    </div>
+                    <div id="imgPreview" class="border"></div>
+                    <input type="hidden" name="coverImageIndex" id="coverImageIndex" >
+                    <input type="hidden" name="flagName" id="flagName" >
+                    <small>click on Image to make it a cover image</small>
+                </div>
                 <!-- Submit Button -->
-                <div class="form-row">
-                    <div class="col-lg-7">
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                <div class="form-row mt-2">
+                    <div class="col-lg-3">
+                        <button type="submit" id="save" name="save" class="btn btn-primary btn-block">Submit</button>
                     </div>
                 </div>
             </form>
@@ -46,4 +58,58 @@
     </div>
 </div>
 </section>
+<!-- if other user trying to edit product -->
+{% else %}
+<script>
+        function pageRedirect() 
+        {
+        window.location.replace("http://127.0.0.1:8000/");
+    }
+    pageRedirect();  
+</script>
+{% endif %}
+<!-- javascript -->
+<script>
+
+    function flag(img,id){
+        var div = document.getElementById(img);
+        $(".divv").removeClass('afterImgPreview').css("border-color","black");
+        $(div).toggleClass('afterImgPreview').css("border-color","red");
+        console.log("inside flag function");
+        $('#flagName').val(img);
+        $('#coverImageIndex').val(id);
+        console.log($('#coverImageIndex').val());
+    }
+    
+
+     images.onchange = evt =>{
+        $('#imgPreview').html('');
+        const[file]=images.files;
+        var url = URL.createObjectURL(file);
+        console.log(images.files[0]);
+        var div = document.getElementById("imgPreview");
+        var html='';
+        for (let i=0;i<images.files.length;i++){
+            var info=images.files[i];
+            url=URL.createObjectURL(info);
+            html += `<div class="imgPreview divv" onclick="flag('${images.files[i].name}','none')" id="${images.files[i].name}">
+                        <img id="imageID" src="${url}" id="${i}" alt="images" height="70px" />
+                    </div>`;} 
+        div.innerHTML=html;
+        $('#')
+  }
+    function del(img,id){
+        div = document.getElementById(img)
+        $(div).remove()
+            $.ajax({
+                url:'/ajax/delete-image/',
+                data:{
+                    'imageName':img,
+                    'product_id':id
+                },
+                dataType: 'json',
+            });
+    }
+    
+</script>
 {% endblock %}

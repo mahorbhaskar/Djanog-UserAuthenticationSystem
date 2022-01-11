@@ -15,13 +15,27 @@
                                 <div class="card-body">
                                         <small style="font-weight: bold;">User: {{p.user}}</small><br>
                                         <small style="font-weight: bold;">Product Name: {{p.name}}</small><br>
-                                        <small style="font-weight: bold;">Description: {{p.discription}}</small>
+                                        <small style="font-weight: bold;">Description: {{p.discription}}</small> <br>
+                                        <a href="{% url 'details' p.id %}"  class="btn btn-primary mt-1 btn-block">Details</a>
+                                        <button class="btn btn-danger mt-1 btn-block" onclick="deletepro('{{p.id}}')">Delete</button>
                                 </div>
-                                <a href="{% url 'details' p.id %}"  class="btn btn-outline-dark btn-sm m-1">Details</a> <br>
                         </div>
                 </div>
                 {% endfor %} 
         
 </div>
+<script>
+        function deletepro(id){
+        div=document.getElementById(id)
+        $(div).remove()
+        console.log(id)
+        $.ajax({
+            url: '/ajax/delete_product/',
+            data:{
+                  'product_id': id
+                  },
+            dataType: 'json',
+        });
+        }
+    </script>
 {% endblock content %}
-

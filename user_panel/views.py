@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+import product
 
 from product.models import Images, Product
 from .models import Question, UserQuestionModel, Profile
@@ -19,7 +20,7 @@ def home(request):
     product = Product.objects.all()
     images = Images.objects.filter(flag=1)
     return render(request,'home.html',{'product':product,'images':images})
-
+        
 # Function to Register the User
 def register(request):
     if request.method == 'POST':
