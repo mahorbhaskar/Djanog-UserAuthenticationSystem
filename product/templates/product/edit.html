@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-{% if request.user == product_data.user %}
 <section class="form my-4 mx-5">
     <div class="container">
         <div class="row no-gutters">
@@ -58,16 +57,6 @@
     </div>
 </div>
 </section>
-<!-- if other user trying to edit product -->
-{% else %}
-<script>
-        function pageRedirect() 
-        {
-        window.location.replace("http://127.0.0.1:8000/");
-    }
-    pageRedirect();  
-</script>
-{% endif %}
 <!-- javascript -->
 <script>
 
@@ -81,7 +70,6 @@
         console.log($('#coverImageIndex').val());
     }
     
-
      images.onchange = evt =>{
         $('#imgPreview').html('');
         const[file]=images.files;
@@ -96,7 +84,6 @@
                         <img id="imageID" src="${url}" id="${i}" alt="images" height="70px" />
                     </div>`;} 
         div.innerHTML=html;
-        $('#')
   }
     function del(img,id){
         div = document.getElementById(img)

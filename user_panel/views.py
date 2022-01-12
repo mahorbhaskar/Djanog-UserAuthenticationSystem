@@ -17,7 +17,7 @@ import random, math
 
 
 def home(request):
-    product = Product.objects.all()
+    product = Product.objects.filter(flag=0)
     images = Images.objects.filter(flag=1)
     return render(request,'home.html',{'product':product,'images':images})
         

@@ -2,9 +2,9 @@ from django.core.checks import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Images, Product
-from django.http import JsonResponse
+from django.http import JsonResponse, request
+from .decorators import checkUserProduct
 # Create your views here.
-
 #show the product only user
 def myProduct(request):
     if request.user:
@@ -24,8 +24,6 @@ def addProduct(request):
         coverImageIndex = int(request.POST.get('coverImageIndex'))
         product_data = Product.objects.create(name=product_name,discription=product_description,user=request.user)
         product_data.save()
-
-        print(coverImageIndex)
         count = 1
         for img in images:
             print('inside of loop')
@@ -40,11 +38,18 @@ def addProduct(request):
             count+=1
     return render(request,'product/product.html')
 
-def details(request,id=None):
+def details(request,id):
     product_data = Product.objects.get(id=id)
     images = Images.objects.filter(product=product_data)
-
     return render(request,'product/details.html',{'product_data':product_data,'images':images})
+
+#Edit Product by the product
+@login_required(login_url='login')
+@checkUserProduct
+def editProduct(request,id=None):
+    product_data=Product.objects.get(id=id)
+    image=Images.objects.filter(product=product_data)
+    return render(request,'product/edit.html',{'product_data':product_data,'images':image})
 
 @login_required(login_url='loginpage')
 def updateproduct(request):
@@ -76,19 +81,7 @@ def updateproduct(request):
         newImage = Images.objects.get(id=coverImage)
         newImage.flag='1'
         newImage.save()
-        print("hum if ke andar aa gye view me")
     return redirect('home')
-
-
-#Edit Product by the product
-@login_required(login_url='login')
-def editProduct(request):
-    if request.method == 'POST':
-        id=request.POST.get('id')
-        product_data=Product.objects.get(id=id)
-        image=Images.objects.filter(product=product_data)
-        print(product_data)
-        return render(request,'product/edit.html',{'product_data':product_data,'images':image})
 
 # For Deleting the product
 def deleteProduct(request):
@@ -105,3 +98,11 @@ def deleteImage(request):
     id = request.GET.get('product_id',None)
     deleteImage = Images.objects.get(product_images=img,product=id)
     deleteImage.delete()
+
+def enable_disable(request):
+    id = request.GET.get('product_id')
+    flag_value = request.GET.get('enable_disable')
+    pro = Product.objects.get(id=id)
+    pro.flag = flag_value
+    pro.save()
+    return JsonResponse('successfully checked unchecked')

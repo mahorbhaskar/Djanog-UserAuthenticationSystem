@@ -16,6 +16,15 @@
                                         <small style="font-weight: bold;">User: {{p.user}}</small><br>
                                         <small style="font-weight: bold;">Product Name: {{p.name}}</small><br>
                                         <small style="font-weight: bold;">Description: {{p.discription}}</small> <br>
+                                        {% if p.flag == 0 %}
+                                        <div class="{{p.flag}}">
+                                        <input type="checkbox" name="enable_disable" onclick="enable('{{p.id}}')" id="{{p.id}}"><br>
+                                        </div>
+                                        {% else %}
+                                        <div class="{{p.flag}}">
+                                        <input type="checkbox" name="enable_disable" onclick="enable('{{p.id}}')" id="{{p.id}}" checked><br>
+                                        </div>
+                                        {% endif %}
                                         <a href="{% url 'details' p.id %}"  class="btn btn-primary mt-1 btn-block">Details</a>
                                         <button class="btn btn-danger mt-1 btn-block" onclick="deletepro('{{p.id}}')">Delete</button>
                                 </div>
@@ -25,6 +34,26 @@
         
 </div>
 <script>
+
+function enable(id){
+        var checkbox = document.getElementById(id);
+        var checkvalue = '1';
+
+        if (checkbox.checked == false){
+                checkvalue = '0';
+                checkvalue.hidden = true;
+                
+        }
+        $.ajax({
+                url: '/ajax/enable_disable/',
+                data:{
+                        'product_id':id,
+                        'enable_disable':checkvalue
+                },
+                dataType:'json',
+        });
+}
+
         function deletepro(id){
         div=document.getElementById(id)
         $(div).remove()

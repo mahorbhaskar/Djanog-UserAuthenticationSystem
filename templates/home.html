@@ -17,7 +17,8 @@
                                         <small style="font-weight: bold;">Product Name: {{p.name}}</small><br>
                                         <small style="font-weight: bold;">Description: {{p.discription}}</small>
                                 </div>
-                                <a href="{% url 'details' p.id %}"  class="btn btn-outline-dark btn-sm m-1">Details</a> <br>
+                                <a href="{% url 'details' p.id %}"  class="btn btn-outline-dark btn-sm m-1">Details</a>
+                                <a href="{% url 'addToCart' p.id % cla}" class="btn btn-primary btn-sm mb-1">Add to Cart</a>
                         </div>
                 </div>
                 {% endfor %} 

@@ -13,9 +13,7 @@
     {% endfor %}
     </div>
     {% if request.user == product_data.user %}
-        <form action="{% url 'edit' %}" method="POST">{% csrf_token %}
-            <input type="hidden" value="{{product_data.id}}" id="id" name="id">
-        <button type="submit" class="btn btn-primary" value="submit">Edit</button></form>
+        <a href="{% url 'edit' product_data.id %}" class="btn btn-primary">Edit</a>
     {% endif %}
 </div>
 {% endblock %}

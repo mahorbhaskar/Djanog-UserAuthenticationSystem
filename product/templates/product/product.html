@@ -61,7 +61,7 @@
     var info=images.files[i];
     url=URL.createObjectURL(info);
     html += `<img onclick="index(${i})" src="${url}" id="${i}" class="imgPreview divv" alt="images" height="100px"/>`;}
-    html+=`<br><small>click on image to choose a cover image</small>`; 
+    html+=`<br><small style="color:red;">click on image to choose a cover image</small>`; 
   div.innerHTML=html;}
 </script>
 {% endblock content %}
